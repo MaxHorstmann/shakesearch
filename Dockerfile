@@ -1,3 +1,3 @@
-FROM elasticsearch:7.10.1 #test
+FROM elasticsearch:7.10.1
 ENV discovery.type=single-node
 EXPOSE 9200
