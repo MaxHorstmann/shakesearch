@@ -23,3 +23,19 @@ current state, can be deployed easily on Heroku's free tier.
 
 If you are stronger on the front-end, complete the react-prompt.md in this
 folder.
+
+# Notes
+
+This screams for an Elasticsearch instance with a prepopulated index:
+
+[Dockerfile](Dockerfile) => [Docker Hub](https://hub.docker.com/repository/docker/maxhorstmann/shakesearch) => ACI:
+
+
+```
+az container create \
+    --resource-group shakesearch \
+    --name shakesearch \
+    --image maxhorstmann/shakesearch \
+    --dns-name-label shakesearch  \
+    --ports 9200
+```
