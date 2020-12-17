@@ -26,10 +26,11 @@ folder.
 
 # Notes
 
-This screams for an Elasticsearch instance with a prepopulated index:
+Front-end is completely static and can just live on GH Pages: http://maxhorstmann.net/shakesearch
 
-[Dockerfile](Dockerfile) => [Docker Hub](https://hub.docker.com/repository/docker/maxhorstmann/shakesearch) => ACI:
+Back-end screams for an Elasticsearch instance with a prepopulated index:
 
+[Dockerfile](Dockerfile) => [Docker Hub](https://hub.docker.com/repository/docker/maxhorstmann/shakesearch) => [ACI](http://shakesearch.eastus.azurecontainer.io:9200):
 
 ```
 az container create \
