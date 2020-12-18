@@ -3,7 +3,7 @@ const Controller = {
     ev.preventDefault();
     const form = document.getElementById("form");
     const data = Object.fromEntries(new FormData(form));
-    const response = fetch(`http://shakesearch.eastus.azurecontainer.io:9200/books/_search?q=${data.query}`, { mode: 'cors'}).then((response) => {
+    const response = fetch(`http://shakesearch.eastus.azurecontainer.io:9200/completeworks/_search?q=${data.query}`, { mode: 'cors'}).then((response) => {
       console.log(response);
       // response.json().then((results) => {
       //   Controller.updateTable(results);
