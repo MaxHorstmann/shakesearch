@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Login to Docker Hub
+      run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u maxhorstmann --password-stdin
     - name: Build Docker image
       run: docker build . -t maxhorstmann/shakesearch
     - name: Push Docker image
@@ -21,4 +23,4 @@ jobs:
           --image maxhorstmann/shakesearch \
           --dns-name-label shakesearch  \
           --ports 9200
-          
+
