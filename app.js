@@ -13,6 +13,11 @@ const Controller = {
   updateTable: (results) => {
     const table = document.getElementById("table-body");
     table.innerHTML = '';
+    var totalHits = results.hits.total.value;
+    let hitsRow = document.createElement('tr');
+    hitsRow.innerHTML = `<tr><p style='font-weight:bold'>${totalHits} results found.</p></tr>`
+    table.appendChild(hitsRow);
+
     for (let hit of results.hits.hits) {
       let score = hit._score;
       let source = hit._source;
