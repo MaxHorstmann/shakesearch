@@ -11,15 +11,15 @@ const Controller = {
   },
 
   updateTable: (results) => {
-    //console.log(results);
     const table = document.getElementById("table-body");
-    const rows = [];
+    table.innerHTML = '';
     for (let hit of results.hits.hits) {
       let score = hit._score;
       let source = hit._source;
-      rows.push(`<tr>${source.text_entry}<br>${source.play_name}<br>${score}</tr>`);
+      let row = document.createElement('tr');
+      row.innerHTML = `<tr><p class="mb-0">In <em>${source.play_name}:</em></p><p>${source.speaker}: ${source.text_entry}</p></tr>`;
+      table.appendChild(row);
     }
-    table.innerHTML = rows;
   },
 };
 
