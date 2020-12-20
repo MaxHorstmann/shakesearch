@@ -15,12 +15,20 @@ jobs:
       run: docker build . -t maxhorstmann/shakesearch
     - name: Push Docker image
       run: docker push maxhorstmann/shakesearch
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Deploy to ACI
-      run: |
-        az container create \
-          --resource-group shakesearch \
-          --name shakesearch \
-          --image maxhorstmann/shakesearch \
-          --dns-name-label shakesearch  \
-          --ports 9200
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.0.72
+        inlineScript: |
+           az container create \
+            --resource-group shakesearch \
+            --name shakesearch \
+            --image maxhorstmann/shakesearch \
+            --dns-name-label shakesearch  \
+            --ports 9200
+
 
