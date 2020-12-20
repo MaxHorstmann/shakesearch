@@ -1,0 +1,24 @@
+name: Deploy Shakesearch backend
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Docker image
+      run: docker build . -t maxhorstmann/shakesearch
+    - name: Push Docker image
+      run: docker push maxhorstmann/shakesearch
+    - name: Deploy to ACI
+      run: |
+        az container create \
+          --resource-group shakesearch \
+          --name shakesearch \
+          --image maxhorstmann/shakesearch \
+          --dns-name-label shakesearch  \
+          --ports 9200
+          
