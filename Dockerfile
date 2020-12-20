@@ -10,6 +10,9 @@ RUN /usr/local/bin/docker-entrypoint.sh elasticsearch -d -E path.data=/tmp/data 
 FROM elasticsearch:7.10.1
 COPY --from=builder /tmp/data/ /usr/share/elasticsearch/data/
 ENV discovery.type=single-node
+# Enable CORS so Browsers can talk to it directly.
+# Not what you would wanna do in the real world (don't put your db on the internet, there
+# would be some API layer in between e.g. Azure Functions) but totally works for this POC:
 RUN echo "http.cors.enabled : true" >> /usr/share/elasticsearch/config/elasticsearch.yml
 RUN echo "http.cors.allow-origin: '*'" >> /usr/share/elasticsearch/config/elasticsearch.yml
 EXPOSE 9200
