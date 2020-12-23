@@ -15,5 +15,4 @@ ENV discovery.type=single-node
 # would be some API layer in between e.g. Azure Functions) but totally works for this POC:
 RUN echo "http.cors.enabled : true" >> /usr/share/elasticsearch/config/elasticsearch.yml
 RUN echo "http.cors.allow-origin: '*'" >> /usr/share/elasticsearch/config/elasticsearch.yml
-RUN echo "http.port: 80" >> /usr/share/elasticsearch/config/elasticsearch.yml
-EXPOSE 80
+EXPOSE 9200
