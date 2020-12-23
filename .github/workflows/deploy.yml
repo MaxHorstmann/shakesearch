@@ -29,6 +29,6 @@ jobs:
             --name shakesearch \
             --image maxhorstmann/shakesearch \
             --dns-name-label shakesearch  \
-            --ports 80
+            --ports 9200
 
 
