@@ -20,7 +20,7 @@ Still, I was intrigued to tackle this a bit more from a DevOps perspective and s
 
 * We can just host that image on [Docker Hub](https://hub.docker.com/repository/docker/maxhorstmann/shakesearch). In case anyone else needs Elasticsearch preloaded with Shakespeare....
 
-* We'll have to host a running container somewhere. I chose [Azure Container Instances (ACI)](https://azure.microsoft.com/en-us/services/container-instances) - super simple, [just works](http://shakesearch.eastus.azurecontainer.io/shakespeare/_search?q=hamlet).
+* We'll have to host a running container somewhere. I chose [Azure Container Instances (ACI)](https://azure.microsoft.com/en-us/services/container-instances) - super simple, [just works](http://shakesearch.eastus.azurecontainer.io:9200/shakespeare/_search?q=hamlet).
 
 * Let's add a [GitHub Actions Workflow](.github/workflows/deploy.yml) to automate all those backend deployment steps. 
 
