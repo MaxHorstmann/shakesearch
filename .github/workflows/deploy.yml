@@ -29,6 +29,8 @@ jobs:
             --name shakesearch \
             --image maxhorstmann/shakesearch \
             --dns-name-label shakesearch  \
-            --ports 9200
+            --ports 9200 \
+            --log-analytics-workspace ${{ secrets.AZURE_LOG_ANALYTICS_WORKSPACE }} \
+            --log-analytics-workspace-key ${{ secrets.AZURE_LOG_ANALYTICS_WORKSPACE_KEY }}
 
 
