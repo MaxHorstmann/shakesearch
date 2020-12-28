@@ -15,6 +15,10 @@ jobs:
       run: docker build . -t maxhorstmann/shakesearch
     - name: Push Docker image
       run: docker push maxhorstmann/shakesearch
+    - name: Build Docker image (nginx)
+      run: docker build . -t maxhorstmann/shakesearch-nginx
+    - name: Push Docker image (nginx)
+      run: docker push maxhorstmann/shakesearch-nginx
     - name: Login to Azure
       uses: azure/login@v1
       with:
@@ -32,5 +36,21 @@ jobs:
             --ports 9200 \
             --log-analytics-workspace ${{ secrets.AZURE_LOG_ANALYTICS_WORKSPACE }} \
             --log-analytics-workspace-key ${{ secrets.AZURE_LOG_ANALYTICS_WORKSPACE_KEY }}
+    - name: Deploy to ACI
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.0.72
+        inlineScript: |
+           az container create \
+            --resource-group shakesearch \
+            --name shakesearch-nginx \
+            --image maxhorstmann/shakesearch-nginx \
+            --dns-name-label shakesearch-nginx  \
+            --ports 80 \
+            --log-analytics-workspace ${{ secrets.AZURE_LOG_ANALYTICS_WORKSPACE }} \
+            --log-analytics-workspace-key ${{ secrets.AZURE_LOG_ANALYTICS_WORKSPACE_KEY }}
+
+
+
 
 
