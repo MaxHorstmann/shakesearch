@@ -11,15 +11,19 @@ jobs:
     - uses: actions/checkout@v2
     - name: Login to Docker Hub
       run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u maxhorstmann --password-stdin
-    - name: Build Docker image
+    - name: Build shakesearch Docker image
       run: docker build . -t maxhorstmann/shakesearch
-    - name: Push Docker image
+    - name: Build shakesearch-haproxy Docker image
+      run: docker build haproxy -t maxhorstmann/shakesearch-haproxy
+    - name: Push shakesearch Docker image
       run: docker push maxhorstmann/shakesearch
+    - name: Push shakesearch-haproxy Docker image
+      run: docker push maxhorstmann/shakesearch-haproxy
     - name: Login to Azure
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: Deploy to ACI
+    - name: Deploy shakesearch to ACI
       uses: azure/CLI@v1
       with:
         azcliversion: 2.0.72
@@ -30,7 +34,16 @@ jobs:
             --image maxhorstmann/shakesearch \
             --dns-name-label shakesearch  \
             --ports 9200 \
-            --log-analytics-workspace ${{ secrets.AZURE_LOG_ANALYTICS_WORKSPACE }} \
-            --log-analytics-workspace-key ${{ secrets.AZURE_LOG_ANALYTICS_WORKSPACE_KEY }}
+    - name: Deploy shakesearch-haproxy to ACI
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.0.72
+        inlineScript: |
+           az container create \
+            --resource-group shakesearch \
+            --name shakesearch-haproxy \
+            --image maxhorstmann/shakesearch-haproxy \
+            --dns-name-label shakesearch-haproxy  \
+            --ports 9200 \
 
 
