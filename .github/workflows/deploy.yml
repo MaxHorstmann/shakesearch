@@ -32,8 +32,8 @@ jobs:
             --resource-group shakesearch \
             --name shakesearch \
             --image maxhorstmann/shakesearch \
-            --dns-name-label shakesearch  \
-            --ports 9200 \
+            --dns-name-label shakesearch-elastic  \
+            --ports 9999 
     - name: Deploy shakesearch-haproxy to ACI
       uses: azure/CLI@v1
       with:
@@ -43,7 +43,8 @@ jobs:
             --resource-group shakesearch \
             --name shakesearch-haproxy \
             --image maxhorstmann/shakesearch-haproxy \
-            --dns-name-label shakesearch-haproxy  \
-            --ports 9200 \
-
+            --dns-name-label shakesearch  \
+            --ports 9200
+            --log-analytics-workspace ${{ secrets.AZURE_LOG_ANALYTICS_WORKSPACE }} \
+            --log-analytics-workspace-key ${{ secrets.AZURE_LOG_ANALYTICS_WORKSPACE_KEY }}
 
